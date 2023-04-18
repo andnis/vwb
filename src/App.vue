@@ -51,7 +51,7 @@
           <v-divider class="mb-4"></v-divider>
 
           <v-text-field label="E-Mail für Bestätigung" variant="outlined" v-model="email.cc" required
-            :rules="rules"></v-text-field>
+            :rules="emailRules"></v-text-field>
 
           <p class="text-subtitle-1">
             Officecharge (1 Pferd x {{ form.riders.length }} Reiter):
@@ -63,7 +63,7 @@
 
           <v-container>
             <v-text-field v-model="form.extras.stableAC" type="number" style="width: 80px" density="compact" hide-details
-              variant="outlined" class="float-left mr-4"></v-text-field>
+              variant="outlined" class="float-left mr-4" min="0" ></v-text-field>
             <p class="text-subtitle-1">
               Festbox / firm box stable A-C (230€)
             </p>
@@ -71,7 +71,7 @@
 
           <v-container>
             <v-text-field v-model="form.extras.stableHI" type="number" style="width: 80px" density="compact" hide-details
-              variant="outlined" class="float-left mr-4"></v-text-field>
+              variant="outlined" class="float-left mr-4" min="0" ></v-text-field>
             <p class="text-subtitle-1">
               Festbox / firm box stable H-I (170€)
             </p>
@@ -79,7 +79,7 @@
 
           <v-container>
             <v-text-field v-model="form.extras.camper" type="number" style="width: 80px" density="compact" hide-details
-              variant="outlined" class="float-left mr-4"></v-text-field>
+              variant="outlined" class="float-left mr-4" min="0" ></v-text-field>
             <p class="text-subtitle-1">Camper (100€)</p>
             <v-text-field v-model="form.extras.camperKennzeichen" style="width: 200px" density="compact" hide-details
               variant="outlined" class="" label="Kennzeichen" :rules="form.extras.camper ? rules : [true]"></v-text-field>
@@ -199,6 +199,9 @@ export default {
           return "Pflichtfeld";
         },
       ],
+      emailRules: [ 
+        v => !v || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/.test(v) || 'E-mail nicht valide'
+      ]
     };
   },
   methods: {
